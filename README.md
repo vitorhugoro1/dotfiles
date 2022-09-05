@@ -1,5 +1,7 @@
 # Personal Setup
 
+Basic programs and tools to use a fresh PC (Ubuntu like) for PHP and Laravel development.
+
 ## Tools
 
 - PHP
@@ -15,7 +17,6 @@
     - Auto Suggestion
     - Syntax Highlighting
     - Laravel
-
 
 ## Install
 
