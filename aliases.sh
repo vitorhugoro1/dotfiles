@@ -26,18 +26,13 @@ al() {
   tail -f -n 450 storage/logs/laravel*.log | grep -i -E "^\[\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}\]|Next [\w\W]+?\:" --color
 }
 
-off() {
-  sudo service apache2 stop;
-  sudo service postgresql stop;
-  sudo service mysql stop;
-  sudo service mongodb stop;
-  sudo systemctl stop redis;
-}
-
 # Docker
 alias dcup='docker-compose up -d'
 alias dcec='docker-compose exec'
 alias dcdo='docker-compose down'
+alias dcs='docker stats $(docker-compose ps -q || echo "#")'
+alias dcps='docker ps $((docker-compose ps -q  || echo "#") | while read line; do echo "--filter id=$line"; done)'
+alias dcpsa='docker ps -a --format "table {{.ID}}\t{{.Names}}\t{{.Networks}}\t{{.State}}\t{{.CreatedAt}}" -f status=running'
 
 unit() {
   if [ -f vendor/bin/phpunit ]; then
@@ -100,10 +95,12 @@ alias gcb="checkoutb"
 alias gc="checkout"
 alias gs='status'
 alias gde="git branch -D"
-alias wip='git add . && git commit -m "Wip"'
+alias wip='git add . && git commit -m "chore: wip"'
 alias checkoutb="checkout -b "
 alias stash='git stash'
-alias gsa='stash -u "Wip"'
+alias gsa='stash -u "chore: wip"'
+alias gcn='git checkout -b'
+alias grmm='git branch --merged | grep -v "main\|master\|develop\|*" | xargs git branch -D'
 
 gtag() {
   tag=$1;
@@ -236,5 +233,5 @@ checkoutf() {
 }
 
 contains() {
-    [[ $2 =~ (^|[[:space:]])$1($|[[:space:]]) ]] && echo 1 || echo 0
+  [[ $2 =~ (^|[[:space:]])$1($|[[:space:]]) ]] && echo 1 || echo 0
 }

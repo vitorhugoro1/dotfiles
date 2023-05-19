@@ -3,7 +3,7 @@
 set -e
 
 # Install Zsh and Oh My Zsh!
-sudo apt-get install \
+sudo apt-get install -y \
     zsh \
     curl
 
